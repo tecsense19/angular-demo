@@ -1,0 +1,102 @@
+<main class="h-full w-[calc(100vw-84px)] py-[25px] overflow-auto">
+	<div class="flex items-center mx-[17px]">
+		<a routerLink="/home">
+			<img src="../../assets/back.svg" alt="back" class="" />
+		</a>
+
+		<!-- getCurrentPathName() is used for getting current path name -->
+		<p class="capitalize text-[#1F2A37] text-[22px] font-[600] leading-[39px]">{{ getCurrentPathName() }}</p>
+
+	</div>
+	<div class=" h-[765px] bg-white custom-box-shadow mt-[22px] rounded-[10px] overflow-hidden mx-[30px]">
+		<div class="pt-[30px] ps-[30px] pb-[20px] ">
+			<div class="w-[219px] h-[38px] relative flex bg-[#F9FAFB]">
+				<img src="../../assets/search.svg" alt="search" class="absolute top-1/2 -translate-y-1/2 left-[15px]">
+				<input type="text" placeholder="Search here"
+					class="outline-none w-full h-full border-[#D1D5DB] border-[1.5px] rounded-[8px] ps-[45px] pe-[15px] ">
+			</div>
+		</div>
+		<div>
+
+			<!-- Start of mat-table component -->
+			<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 !shadow-none !px-[30px]">
+
+				<!-- Column for 'name' -->
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef
+						class="text-[#6B7280] text-[14px] font-[600] leading-[16.94px] ps-[15px]">
+						<p class="ps-[15px]">Name</p>
+					</th>
+
+					<td mat-cell *matCellDef="let element" class="w-[25%] ">
+						<div class="flex gap-x-[15px] ps-[15px]">
+							<img [src]="'../../assets/' + element.icon" alt="">
+							<div class="flex flex-col justify-between ">
+								<span
+									class="text-[#1F2A37] text-[16px] font-[500] leading-[19.63px]">{{element.name}}</span>
+								<span
+									class="text-[#6B7280] text-[14px] font-[500] leading-[19.63px]">{{element.short}}</span>
+							</div>
+						</div>
+					</td>
+				</ng-container>
+
+				<!-- Column for 'change today' -->
+				<ng-container matColumnDef="change today">
+					<th mat-header-cell *matHeaderCellDef
+						class="text-[#6B7280] text-[14px] font-[600] leading-[16.94px]"> Change Today </th>
+					<td mat-cell *matCellDef="let element" class="w-[25%] ">
+						<div class="flex flex-col font-[600] text-[14px]"
+							[ngStyle]="{'color':getColor(element.percentage)}">
+							<p>${{element.change}}</p>
+							<p class="text-[12px]">({{element.percentage}}%)</p>
+						</div>
+					</td>
+				</ng-container>
+
+				<!-- Column for 'price' -->
+				<ng-container matColumnDef="price" class="!w-[25%]">
+					<th mat-header-cell *matHeaderCellDef
+						class="text-[#6B7280] text-[14px] font-[600] leading-[16.94px]"> Price
+					</th>
+					<td mat-cell *matCellDef="let element"
+						class="w-[25%] font-[600] text-[14px] leading-[16.94px] text-[#6B7280] ">
+						${{element.price}} </td>
+				</ng-container>
+
+				<!-- Column for actions -->
+				<ng-container matColumnDef=" " class="!w-[25%] ">
+					<th mat-header-cell *matHeaderCellDef> </th>
+					<td mat-cell *matCellDef="let element" class="w-[25%]">
+						<div class="flex justify-end gap-x-[15px] pe-[15px]">
+							<!-- Buy button -->
+							<button
+								class="bg-green_color h-[38px] w-[76px] rounded-[6px] flex justify-center items-center text-white gap-x-[9.5px] transition-transform hover:scale-105">
+								<img src="../../assets/increase.svg" alt="">
+								<p class="text-[14px] font-[500] leading-[39px]">Buy</p>
+							</button>
+							<!-- Sell button -->
+							<button
+								class="bg-red_color h-[38px] w-[76px] rounded-[6px] flex justify-center items-center text-white gap-x-[9.5px] transition-transform hover:scale-105">
+								<img src="../../assets/tag.svg" alt="">
+								<p class="text-[14px] font-[500] leading-[39px]">Sell</p>
+							</button>
+						</div>
+					</td>
+				</ng-container>
+
+				<!-- Table Header row -->
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"
+					class="!h-[47px] !bg-[#F9FAFB] !px-[30px] !border-t-[1.5px] !border-[#E5E7EB]"></tr>
+
+				<!-- Table Data rows -->
+				<tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;"
+					class="!h-[63px] !px-[30px] cursor-pointer !rounded-[10px] hover:bg-slate-100"
+					[class.last-row]="i === dataSource.length - 1" (click)="openDialog(row)">
+				</tr>
+
+			</table>
+			<!-- End of mat-table component -->
+		</div>
+	</div>
+</main>

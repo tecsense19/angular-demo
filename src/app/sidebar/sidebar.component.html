@@ -1,0 +1,17 @@
+<div class="h-full bg-primary_color w-[84px] flex flex-col items-center py-[24px]">
+    <!-- Logo -->
+    <span class="mb-[50px]">
+        <a routerLink="/home" class="bg-red-300 inline">
+            <img src="../assets/logo.svg" alt="logo" class="w-[45px] h-[45px]">
+        </a>
+    </span>
+
+    <!-- Navigation links -->
+    <div *ngFor="let navLink of navLinks" class="flex flex-col ">
+        <!-- Individual navigation link -->
+        <a [routerLink]="navLink.path" class="w-[52px] h-[52px] flex mb-[5px] rounded-[10px] hover:bg-[#7C5DFB]"
+            routerLinkActive="active_link">
+            <img [src]="'../assets/' + navLink.icon" alt="{{ navLink.path }}" class="m-auto">
+        </a>
+    </div>
+</div>
